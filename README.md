@@ -1,4 +1,4 @@
-# 🎥 What Movie? App
+# 🎥 What Movie! App
 
 **What Movie!** is your ultimate movie guide, designed to help you discover, explore, and decide what to watch next. 
 With an intuitive interface and robust features, it's a must-have app for every movie enthusiast.
