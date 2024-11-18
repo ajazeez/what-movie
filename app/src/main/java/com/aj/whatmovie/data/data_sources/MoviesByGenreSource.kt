@@ -8,7 +8,7 @@ import com.aj.whatmovie.domain.repository.DiscoverMoviesRepository
 import timber.log.Timber
 
 class MoviesByGenreSource(
-    val genre: MovieGenre,
+    private val genre: MovieGenre,
     private val repository: DiscoverMoviesRepository
 ): PagingSource<Int, MovieData>() {
 
