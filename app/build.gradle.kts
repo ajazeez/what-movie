@@ -1,3 +1,6 @@
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -6,9 +9,15 @@ plugins {
     id ("com.google.dagger.hilt.android")
 }
 
+
+val localPropertiesFile = rootProject.file("local.properties")
+val localProperties = Properties()
+localProperties.load(FileInputStream(localPropertiesFile))
+
 android {
     namespace = "com.aj.whatmovie"
     compileSdk = 34
+
 
     defaultConfig {
         applicationId = "com.aj.whatmovie"
@@ -17,8 +26,8 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        buildConfigField( "String", "API_KEY", project.properties["API_KEY"].toString())
-        buildConfigField("String", "BASE_URL", project.properties["BASE_URL"].toString())
+        buildConfigField( "String", "API_KEY", localProperties["API_KEY"].toString())
+        buildConfigField("String", "BASE_URL", localProperties["BASE_URL"].toString())
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
