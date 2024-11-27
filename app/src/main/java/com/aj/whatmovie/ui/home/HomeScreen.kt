@@ -5,11 +5,8 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
-import androidx.compose.foundation.gestures.snapping.rememberSnapFlingBehavior
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -17,8 +14,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.paging.compose.collectAsLazyPagingItems
-import com.aj.whatmovie.ui.home.components.FeaturedMovieCard
+import com.aj.whatmovie.ui.home.components.BannerCarouselRow
 import com.aj.whatmovie.ui.home.components.HomeScreenLoader
 import com.aj.whatmovie.ui.home.components.ShowcaseRow
 
@@ -64,7 +60,7 @@ fun HomeScreen(modifier: Modifier) {
                 .background(MaterialTheme.colorScheme.background)
         ) {
             item {
-                FeaturedCarousel(
+                BannerCarouselRow(
                     modifier = Modifier.fillParentMaxWidth()
                 )
             }
@@ -76,30 +72,6 @@ fun HomeScreen(modifier: Modifier) {
                         moviesData = it.movies
                     )
                 }
-            }
-        }
-    }
-}
-
-@Composable
-fun FeaturedCarousel(modifier: Modifier) {
-    val homeViewModel: HomeViewModel = hiltViewModel()
-    LaunchedEffect("FeaturedCarousel") {
-        homeViewModel.getPopularMovies()
-    }
-
-    val featuredMovies = homeViewModel.popularMoviesData.collectAsLazyPagingItems()
-    val carouselRowState = rememberLazyListState()
-    LazyRow(
-        state = carouselRowState,
-        flingBehavior = rememberSnapFlingBehavior(lazyListState = carouselRowState)
-    ) {
-        items(featuredMovies.itemCount) {
-            featuredMovies[it]?.let { movieData ->
-                FeaturedMovieCard(
-                    modifier = modifier,
-                    movieData = movieData
-                )
             }
         }
     }
